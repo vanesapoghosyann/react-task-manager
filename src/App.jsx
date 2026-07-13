@@ -11,9 +11,10 @@ function App() {
 
   const addTask = (taskText) => {
     const newTask = {
-      text: taskText,
-      completed: false,
-    };
+  id: Date.now(),
+  text: taskText,
+  completed: false,
+};
 
     setTasks([...tasks, newTask]);
   };
@@ -55,7 +56,7 @@ useEffect(() => {
 
       <ul>
         {tasks.map((task, index) => (
-          <li key={index}>
+          <li key={task.id}>
             <span
               style={{
                 textDecoration: task.completed ? "line-through" : "none",
