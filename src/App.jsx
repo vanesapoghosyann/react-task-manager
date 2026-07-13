@@ -1,9 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "./components/Header";
 import TaskForm from "./components/TaskForm";
 
 function App() {
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState(() => {
+  const savedTasks = localStorage.getItem("tasks");
+
+  return savedTasks ? JSON.parse(savedTasks) : [];
+});
 
   const addTask = (taskText) => {
     const newTask = {
@@ -33,6 +37,11 @@ function App() {
 
   const completedTasks = tasks.filter(task => task.completed).length;
   const remainingTasks = tasks.length - completedTasks;
+
+useEffect(() => {
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+}, [tasks]);
+
 
   return (
     <div>
