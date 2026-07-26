@@ -1,16 +1,77 @@
-# React + Vite
+# 📋 React Task Manager
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern and responsive task management application built with **React** and **Vite**. The application helps users organize daily tasks with an intuitive interface, priority management, due dates, filtering options, and persistent local storage.
 
-Currently, two official plugins are available:
+## 🚀 Live Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+🔗 https://react-task-manager-8ck6.vercel.app
 
-## React Compiler
+## ✨ Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* Create, edit, and delete tasks
+* Mark tasks as completed or undo completed tasks
+* Filter tasks (All / Active / Completed)
+* Assign High, Medium, or Low priority
+* Add due dates with user-friendly formatting
+* Expand completed tasks to view details
+* Automatic Local Storage persistence
+* Live task statistics
+* Responsive design for desktop, tablet, and mobile
+* Modern UI with smooth animations
+* Empty state when no tasks are available
 
-## Expanding the ESLint configuration
+## 🛠️ Technologies
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+* React
+* JavaScript (ES6+)
+* Vite
+* HTML5
+* CSS3
+* Local Storage API
+* Git & GitHub
+* Vercel
+
+## 📸 Screenshots
+
+### Dashboard
+
+![Dashboard](screenshots/Dashboard.jpeg)
+
+### Completed Task
+
+![Completed Task](screenshots/Completed-task.jpeg)
+
+### Empty State
+
+![Empty State](screenshots/Empty-state.jpeg)
+
+### Tablet View
+
+![Tablet](screenshots/Responsiveness(ipad).jpeg)
+
+### Mobile View
+
+![Mobile](screenshots/Responsiveness(phone).jpeg)
+
+## 💡 What I Learned
+
+This project helped me strengthen my skills in:
+
+* React Hooks (`useState`, `useEffect`)
+* Component-based architecture
+* State and props management
+* Conditional rendering
+* Local Storage integration
+* Responsive UI development
+* Modern CSS styling and animations
+* Git & GitHub workflow
+* Deploying React applications with Vercel
+
+
+## 👩‍💻 Author
+
+**Vanesa Poghosyan**
+
+GitHub: https://github.com/vanesapoghosyann
+
+Thank you for visiting this repository! If you enjoyed this project, feel free to leave a ⭐ on GitHub.
