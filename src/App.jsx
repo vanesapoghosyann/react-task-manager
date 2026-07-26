@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Header from "./components/Header";
 import TaskItem from "./components/TaskItem";
 import TaskForm from "./components/TaskForm";
+import "./App.css";
 
 function App() {
   const [tasks, setTasks] = useState(() => {
@@ -95,53 +96,102 @@ function App() {
 
 
   return (
-    <div>
+    <div className="app">
 
 
       <Header />
 
       <TaskForm onAddTask={addTask} />
-      <div style={{ marginBottom: "20px" }}>
-        <button onClick={() => setFilter("all")}>
-          All
-        </button>
+      <div className="filter-buttons">
 
-        <button onClick={() => setFilter("active")}>
-          Active
-        </button>
-
-        <button onClick={() => setFilter("completed")}>
-          Completed
-        </button>
-      </div>
-
-      <button onClick={clearCompleted}>
-        Clear Completed
-      </button>
-      <p>Total Tasks: {tasks.length}</p>
-      <p>Completed: {completedTasks}</p>
-      <p>Remaining: {remainingTasks}</p>
+  <button
+    className={filter === "all" ? "active-filter" : ""}
+    onClick={() => setFilter("all")}
+  >
+    All
+  </button>
 
 
+  <button
+    className={filter === "active" ? "active-filter" : ""}
+    onClick={() => setFilter("active")}
+  >
+    Active
+  </button>
 
-      <ul>
-        {filteredTasks.map((task, index) => (
-          <TaskItem
-            key={task.id}
-            task={task}
-            index={index}
-            editingId={editingId}
-            editingText={editingText}
-            setEditingText={setEditingText}
-            startEditing={startEditing}
-            saveTask={saveTask}
-            toggleComplete={toggleComplete}
-            deleteTask={deleteTask}
-            expandedTaskId={expandedTaskId}
-            toggleExpand={toggleExpand}
-          />
-  ))}
-      </ul>
+
+  <button
+    className={filter === "completed" ? "active-filter" : ""}
+    onClick={() => setFilter("completed")}
+  >
+    Completed
+  </button>
+<button 
+  className="clear-btn"
+  onClick={clearCompleted}
+>
+  Clear Completed
+</button>
+</div>
+
+      <div className="stats-container">
+
+  <div className="stat-card">
+    <span>📋</span>
+    <h2>{tasks.length}</h2>
+    <p>Total Tasks</p>
+  </div>
+
+
+  <div className="stat-card">
+    <span>✅</span>
+    <h2>{completedTasks}</h2>
+    <p>Completed</p>
+  </div>
+
+
+  <div className="stat-card">
+    <span>⏳</span>
+    <h2>{remainingTasks}</h2>
+    <p>Remaining</p>
+  </div>
+
+</div>
+
+
+
+      {filteredTasks.length === 0 ? (
+  <div className="empty-state">
+
+    <div className="empty-icon">
+      📋
+    </div>
+
+    <h3>No tasks yet</h3>
+
+    <p>
+      Add your first task above
+    </p>
+
+  </div>
+) : (
+  <ul>
+    {filteredTasks.map((task, index) => (
+      <TaskItem
+        key={task.id}
+        task={task}
+        index={index}
+        editingId={editingId}
+        editingText={editingText}
+        setEditingText={setEditingText}
+        startEditing={startEditing}
+        saveTask={saveTask}
+        toggleComplete={toggleComplete}
+        deleteTask={deleteTask}
+      />
+    ))}
+  </ul>
+)}
 
     </div>
   );

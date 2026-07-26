@@ -44,7 +44,9 @@ function TaskItem({
   toggleExpand
 }) {
   return (
-    <li>
+    <li className={`task-card ${
+    task.completed ? "completed-task" : ""
+  }`}>
       {editingId === task.id ? (
         <>
           <input
@@ -60,108 +62,108 @@ function TaskItem({
       ) : (
         <>
           <div style={{ marginBottom: "15px" }}>
-  <h3
-    style={{
-      cursor: task.completed ? "pointer" : "default",
-      color: task.completed ? "green" : "black",
-    }}
-    onClick={() => {
-      if (task.completed) {
-        toggleExpand(task.id);
-      }
-    }}
-  >
-    {task.completed ? "✅ " : ""}
-    {task.text}
-  </h3>
+            <h3 className="task-title"
+              style={{
+                cursor: task.completed ? "pointer" : "default",
+                color: task.completed ? "green" : "black",
+              }}
+              onClick={() => {
+                if (task.completed) {
+                  toggleExpand(task.id);
+                }
+              }}
+            >
+              {task.completed ? "✅ " : ""}
+              {task.text}
+            </h3>
 
-  {!task.completed && (
-    <>
-      <p>
-  Priority:{" "}
-  <span
-    style={{
-      color:
-        task.priority === "High"
-          ? "red"
-          : task.priority === "Medium"
-          ? "orange"
-          : "green",
+            {!task.completed && (
+              <>
+                <p>
+                  Priority:{" "}
+                  <span
+                    style={{
+                      color:
+                        task.priority === "High"
+                          ? "red"
+                          : task.priority === "Medium"
+                            ? "orange"
+                            : "green",
 
-      fontWeight: "bold",
-    }}
-  >
-    {task.priority === "High"
-      ? "🔴 High"
-      : task.priority === "Medium"
-      ? "🟡 Medium"
-      : "🟢 Low"}
-  </span>
-</p>
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {task.priority === "High"
+                      ? "🔴 High"
+                      : task.priority === "Medium"
+                        ? "🟡 Medium"
+                        : "🟢 Low"}
+                  </span>
+                </p>
 
-      <p
-  style={{
-    color: formatDueDate(task.dueDate).includes("Overdue")
-      ? "red"
-      : "black",
-    fontWeight: "bold",
-  }}
->
-  {formatDueDate(task.dueDate)}
-</p>
-    </>
-  )}
+                <p
+                  style={{
+                    color: formatDueDate(task.dueDate).includes("Overdue")
+                      ? "red"
+                      : "black",
+                    fontWeight: "bold",
+                  }}
+                >
+                  {formatDueDate(task.dueDate)}
+                </p>
+              </>
+            )}
 
-  {task.completed && expandedTaskId === task.id && (
-    <>
-      <p>
-        Status: ✅ Completed
-      </p>
+            {task.completed && expandedTaskId === task.id && (
+              <>
+                <p>
+                  Status: ✅ Completed
+                </p>
 
-      <p>
-  Priority:{" "}
-  <span
-    style={{
-      color:
-        task.priority === "High"
-          ? "red"
-          : task.priority === "Medium"
-          ? "orange"
-          : "green",
-      fontWeight: "bold",
-    }}
-  >
-    {task.priority === "High"
-      ? "🔴 High"
-      : task.priority === "Medium"
-      ? "🟡 Medium"
-      : "🟢 Low"}
-  </span>
-</p>
+                <p>
+                  Priority:{" "}
+                  <span
+                    style={{
+                      color:
+                        task.priority === "High"
+                          ? "red"
+                          : task.priority === "Medium"
+                            ? "orange"
+                            : "green",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {task.priority === "High"
+                      ? "🔴 High"
+                      : task.priority === "Medium"
+                        ? "🟡 Medium"
+                        : "🟢 Low"}
+                  </span>
+                </p>
 
-      <p
-  style={{
-    color: formatDueDate(task.dueDate).includes("Overdue")
-      ? "red"
-      : "black",
-    fontWeight: "bold",
-  }}
->
-  {formatDueDate(task.dueDate)}
-</p>
-    </>
-  )}
-</div>
+                <p
+                  style={{
+                    color: formatDueDate(task.dueDate).includes("Overdue")
+                      ? "red"
+                      : "black",
+                    fontWeight: "bold",
+                  }}
+                >
+                  {formatDueDate(task.dueDate)}
+                </p>
+              </>
+            )}
+          </div>
 
-          <button onClick={() => startEditing(task)}>
+          <button className="edit-btn" onClick={() => startEditing(task)}>
             Edit
           </button>
 
-          <button onClick={() => toggleComplete(task.id)}>
+          <button className="complete-btn" onClick={() => toggleComplete(task.id)}>
             {task.completed ? "Undo" : "Complete"}
           </button>
 
-          <button onClick={() => deleteTask(task.id)}>
+          <button className="delete-btn" onClick={() => deleteTask(task.id)}>
             Delete
           </button>
         </>

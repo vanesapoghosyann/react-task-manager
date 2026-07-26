@@ -35,13 +35,13 @@ function TaskForm({ onAddTask }) {
       />
 
       <select
-        value={priority}
-        onChange={(e) => setPriority(e.target.value)}
-      >
-        <option value="High">High</option>
-        <option value="Medium">Medium</option>
-        <option value="Low">Low</option>
-      </select>
+  value={priority}
+  onChange={(e) => setPriority(e.target.value)}
+>
+  <option value="High">🔴 High Priority</option>
+  <option value="Medium">🟡 Medium Priority</option>
+  <option value="Low">🟢 Low Priority</option>
+</select>
 
       <input
         type="date"
