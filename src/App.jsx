@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Header from "./components/Header";
+import TaskItem from "./components/TaskItem";
 import TaskForm from "./components/TaskForm";
 
 function App() {
@@ -9,18 +10,14 @@ function App() {
     return savedTasks ? JSON.parse(savedTasks) : [];
   });
 
-  const addTask = (taskText) => {
-    const newTask = {
-      id: Date.now(),
-      text: taskText,
-      completed: false,
-    };
-
+  const addTask = (newTask) => {
     setTasks([...tasks, newTask]);
   };
 
-  const deleteTask = (indexToDelete) => {
-    const updatedTasks = tasks.filter((task, index) => index !== indexToDelete);
+  const deleteTask = (id) => {
+    const updatedTasks = tasks.filter(
+      (task) => task.id !== id
+    );
 
     setTasks(updatedTasks);
   };
@@ -30,9 +27,9 @@ function App() {
     setTasks(activeTasks);
   };
 
-  const toggleComplete = (index) => {
-    const updatedTasks = tasks.map((task, i) =>
-      i === index
+  const toggleComplete = (id) => {
+    const updatedTasks = tasks.map((task) =>
+      task.id === id
         ? { ...task, completed: !task.completed }
         : task
     );
@@ -45,12 +42,24 @@ function App() {
     setEditingText(task.text);
   };
 
+  const [expandedTaskId, setExpandedTaskId] = useState(null);
+
+  const toggleExpand = (id) => {
+    if (expandedTaskId === id) {
+      setExpandedTaskId(null);
+    } else {
+      setExpandedTaskId(id);
+    }
+  };
+
   const completedTasks = tasks.filter(task => task.completed).length;
   const remainingTasks = tasks.length - completedTasks;
 
 
   const [editingId, setEditingId] = useState(null);
   const [editingText, setEditingText] = useState("");
+
+
 
 
   const saveTask = (id) => {
@@ -70,11 +79,42 @@ function App() {
   }, [tasks]);
 
 
+  const [filter, setFilter] = useState("all");
+
+  const filteredTasks = tasks.filter((task) => {
+    if (filter === "active") {
+      return !task.completed;
+    }
+
+    if (filter === "completed") {
+      return task.completed;
+    }
+
+    return true;
+  });
+
+
   return (
     <div>
+
+
       <Header />
 
       <TaskForm onAddTask={addTask} />
+      <div style={{ marginBottom: "20px" }}>
+        <button onClick={() => setFilter("all")}>
+          All
+        </button>
+
+        <button onClick={() => setFilter("active")}>
+          Active
+        </button>
+
+        <button onClick={() => setFilter("completed")}>
+          Completed
+        </button>
+      </div>
+
       <button onClick={clearCompleted}>
         Clear Completed
       </button>
@@ -85,47 +125,24 @@ function App() {
 
 
       <ul>
-        {tasks.map((task, index) => (
-          <li key={task.id}>
-            {editingId === task.id ? (
-              <>
-                <input
-                  type="text"
-                  value={editingText}
-                  onChange={(e) => setEditingText(e.target.value)}
-                />
-
-                <button onClick={() => saveTask(task.id)}>
-                  Save
-                </button>
-              </>
-            ) : (
-              <>
-                <span
-                  style={{
-                    textDecoration: task.completed ? "line-through" : "none",
-                    marginRight: "10px",
-                  }}
-                >
-                  {task.text}
-                </span>
-
-                <button onClick={() => startEditing(task)}>
-                  Edit
-                </button>
-
-                <button onClick={() => toggleComplete(index)}>
-                  {task.completed ? "Undo" : "Complete"}
-                </button>
-
-                <button onClick={() => deleteTask(index)}>
-                  Delete
-                </button>
-              </>
-            )}
-          </li>
-        ))}
+        {filteredTasks.map((task, index) => (
+          <TaskItem
+            key={task.id}
+            task={task}
+            index={index}
+            editingId={editingId}
+            editingText={editingText}
+            setEditingText={setEditingText}
+            startEditing={startEditing}
+            saveTask={saveTask}
+            toggleComplete={toggleComplete}
+            deleteTask={deleteTask}
+            expandedTaskId={expandedTaskId}
+            toggleExpand={toggleExpand}
+          />
+  ))}
       </ul>
+
     </div>
   );
 }
